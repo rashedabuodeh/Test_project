@@ -16,10 +16,10 @@ public class RaftMovement : MonoBehaviour
 	{
 		Vector3 dir = (endPos - transform.position).normalized;
 
-		transform.position = transform.position + dir * Time.deltaTime *4* Speed;
+		transform.position = transform.position + dir * Time.deltaTime *5* Speed;
 
 		// if raft is close to end point, reset
-		if (Vector3.Distance(endPos, transform.position) <= (dir * Time.deltaTime *4* Speed).magnitude)
+		if (Vector3.Distance(endPos, transform.position) <= (dir * Time.deltaTime *5* Speed).magnitude)
 		{
 			ResetCube();
 		}
@@ -41,11 +41,11 @@ public class RaftMovement : MonoBehaviour
 			RaycastHit hitinfo;
 			if (Physics.Raycast(ray, out hitinfo, rayrange))
 			{
-				delatpos -= (1.0f / numberofrays) *Speed * direction*6;
+				delatpos -= (1.0f / numberofrays) *Speed * direction*8;
 			}
 			else
 			{
-				delatpos += (1.0f / numberofrays) * Speed * direction*6;
+				delatpos += (1.0f / numberofrays) * Speed * direction*8;
 			}
 			//this.transform.position += Vector3.back;
 
@@ -56,9 +56,9 @@ public class RaftMovement : MonoBehaviour
 		this.transform.position = Vector3.Lerp(this.transform.position, this.transform.position + (Vector3.back*4)  , 1 * Time.deltaTime);
 
 		if (transform.position.z > -12 && transform.position.z <0)
-			transform.rotation = Quaternion.Slerp(transform.rotation , Quaternion.LookRotation(delatpos*6), Time.deltaTime *5 );
+			transform.rotation = Quaternion.Slerp(transform.rotation , Quaternion.LookRotation(delatpos*50), Time.deltaTime *5 );
 
-		this.transform.position = Vector3.Lerp(this.transform.position, this.transform.position  + delatpos, 1 * Time.deltaTime);
+		this.transform.position = Vector3.Lerp(this.transform.position, this.transform.position  + delatpos, 2 * Time.deltaTime);
 
 	}
 	private void OnDrawGizmos()
@@ -85,10 +85,6 @@ public class RaftMovement : MonoBehaviour
 	{
 		ResetCube();
 	}
-	private void OnTriggerEnter(Collider other)
-	{
-		//Debug.Log("Collision");
 
-	}
 
 }
