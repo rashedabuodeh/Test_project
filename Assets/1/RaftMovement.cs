@@ -16,17 +16,17 @@ public class RaftMovement : MonoBehaviour
 	{
 		Vector3 dir = (endPos - transform.position).normalized;
 
-		transform.position = transform.position + dir * Time.deltaTime *5* Speed;
+		transform.position = transform.position + dir * Time.deltaTime *6* Speed;
 
 		// if raft is close to end point, reset
-		if (Vector3.Distance(endPos, transform.position) <= (dir * Time.deltaTime *5* Speed).magnitude)
+		if (Vector3.Distance(endPos, transform.position) <= (dir * Time.deltaTime *6* Speed).magnitude)
 		{
 			ResetCube();
 		}
 
 
 		if (transform.position.z > -15 && transform.position.z<14 )
-			transform.rotation= Quaternion.Slerp(transform.rotation, Quaternion.LookRotation( dir), Time.deltaTime * 40);
+			transform.rotation= Quaternion.Slerp(transform.rotation, Quaternion.LookRotation( dir), Time.deltaTime * 50);
 
 
 		// check for surroundings
@@ -37,28 +37,27 @@ public class RaftMovement : MonoBehaviour
 			var rotationmod = Quaternion.AngleAxis((i / ((float)numberofrays - 1)) * angel * 4 - angel, this.transform.up);
 			var direction = rotation * rotationmod * Vector3.forward ;
 
-			var ray = new Ray(this.transform.position+ new Vector3(1,0,1), direction*6);
+			var ray = new Ray(this.transform.position+  Vector3.forward, direction*3);
 			RaycastHit hitinfo;
 			if (Physics.Raycast(ray, out hitinfo, rayrange))
 			{
-				delatpos -= (1.0f / numberofrays) *Speed * direction*8;
+				delatpos -= (1.0f / numberofrays) *Speed * direction*10;
 			}
 			else
 			{
-				delatpos += (1.0f / numberofrays) * Speed * direction*8;
+				delatpos += (1.0f / numberofrays) * Speed * direction*10;
 			}
-			//this.transform.position += Vector3.back;
 
 		}
 		//this.transform.position += delatpos * Time.deltaTime;
 
 
-		this.transform.position = Vector3.Lerp(this.transform.position, this.transform.position + (Vector3.back*4)  , 1 * Time.deltaTime);
+		//this.transform.position = Vector3.Lerp(this.transform.position, this.transform.position + (Vector3.back*4)  , Time.deltaTime);
 
-		if (transform.position.z > -12 && transform.position.z <0)
-			transform.rotation = Quaternion.Slerp(transform.rotation , Quaternion.LookRotation(delatpos*50), Time.deltaTime *5 );
+		if (transform.position.z > -12 && transform.position.z <-2)
+			transform.rotation = Quaternion.Slerp(transform.rotation , Quaternion.LookRotation(delatpos*5 +this.transform.position), Time.deltaTime *8 );
 
-		this.transform.position = Vector3.Lerp(this.transform.position, this.transform.position  + delatpos, 2 * Time.deltaTime);
+		this.transform.position = Vector3.Lerp(this.transform.position, this.transform.position  + delatpos , Time.deltaTime*2);
 
 	}
 	private void OnDrawGizmos()
@@ -68,7 +67,7 @@ public class RaftMovement : MonoBehaviour
 			var rotation = this.transform.rotation;
 			var rotationmod = Quaternion.AngleAxis((i / ((float)numberofrays - 1)) * angel * 4 - angel, this.transform.up);
 			var direction = rotation * rotationmod * Vector3.forward ;
-			Gizmos.DrawRay(this.transform.position, direction * 5f);
+			Gizmos.DrawRay(this.transform.position +  Vector3.forward, direction * 4);
 
 		}
 	}

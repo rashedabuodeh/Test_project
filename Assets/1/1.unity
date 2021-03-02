@@ -474,7 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 3
   angel: 90
-  rayrange: 4
+  rayrange: 3
   numberofrays: 30
   endPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2116789045
